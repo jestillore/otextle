@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="xyz.ejillberth.otextle">
 
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
 
     <application
         android:name="com.activeandroid.app.Application"
@@ -18,22 +19,11 @@
         <receiver android:name=".SmsListener"
                   android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
                 <action android:name="android.provider.Telephony.SMS_DELIVER"/>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.SEND" />
-                <action android:name="android.intent.action.SENDTO" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="sms" />
-                <data android:scheme="smsto" />
-                <data android:scheme="mms" />
-                <data android:scheme="mmsto" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".SmsListener"
+        <receiver android:name=".MmsListener"
                   android:permission="android.permission.BROADCAST_WAP_PUSH">
             <intent-filter>
                 <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
@@ -42,18 +32,18 @@
         </receiver>
 
         <!-- Service that delivers messages from the phone "quick response" -->
-        <!--<service android:name=".HeadlessSmsSendService"-->
-                 <!--android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE"-->
-                 <!--android:exported="true" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<data android:scheme="sms" />-->
-                <!--<data android:scheme="smsto" />-->
-                <!--<data android:scheme="mms" />-->
-                <!--<data android:scheme="mmsto" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
+        <service android:name=".HeadlessSmssService"
+                 android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE"
+                 android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".MainActivity">
             <intent-filter>
