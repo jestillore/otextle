@@ -1,6 +1,6 @@
 package xyz.ejillberth.otextle;
 
-import android.util.Log;
+import android.telephony.SmsManager;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -196,7 +196,12 @@ class MessageUtil {
         // check if there is something to send
         if (number != null && number.length() > 0 && message != null && message.length() > 0) {
             // send message
-            Log.d("OTEXTLE", number + ": " + message);
+            try {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(number, null, message, null, null);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

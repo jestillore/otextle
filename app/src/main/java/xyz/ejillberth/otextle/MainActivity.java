@@ -9,7 +9,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MessageUtil.newMessage(MessageUtil.formatNumber("639778039119"), "@help");
-        MessageUtil.newMessage(MessageUtil.formatNumber("639253012595"), "@help");
     }
 }
