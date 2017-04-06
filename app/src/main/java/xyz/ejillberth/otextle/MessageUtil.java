@@ -10,11 +10,13 @@ import xyz.ejillberth.otextle.models.Online;
 
 class MessageUtil {
 
-    private static final String CONNECTED = "";
-    private static final String YOU_DISCONNECTED = "";
-    private static final String PARTNER_DISCONNECTED = "";
-    private static final String LOOKING_FOR_PARTNER = "";
-    private static final String INSTRUCTIONS = "";
+    private static final String CONNECTED = "You are now connected to a random stranger. Enjoy texting.";
+    private static final String YOU_DISCONNECTED = "You have disconnected.";
+    private static final String PARTNER_DISCONNECTED = "Stranger has disconnected.";
+    private static final String LOOKING_FOR_PARTNER = "We are looking for a random stranger. Please wait.";
+    private static final String INSTRUCTIONS = "To connect, please reply with @connect.\n" +
+            "To disconnect, please reply with @disconnect.\n" +
+            "For help, please reply with @help";
 
     static void newMessage(String number, String message) {
         if (message.equalsIgnoreCase("@connect")) {
@@ -39,6 +41,9 @@ class MessageUtil {
             else {
                 sendMessage(number, INSTRUCTIONS);
             }
+        }
+        else if (message.equals("@help")) {
+            sendMessage(number, INSTRUCTIONS);
         }
         else {
             if (isConnected(number)) {
